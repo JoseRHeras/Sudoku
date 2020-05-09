@@ -1,39 +1,42 @@
 package application;
 	
 import java.util.ArrayList;
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+import sudokuGame.Table;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 
 public class Main extends Application {
 	
-	ArrayList<TextField> gridInput = new ArrayList();
+	ArrayList<TextField> gridInput = new ArrayList<TextField>();
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			
+			BorderPane root = new BorderPane();
+			
+			Table sudokuTable = new Table();
+			
+			Text gameTitle = new Text("This is Sudoku beta!!");
 			
 			
-			GridPane root = new GridPane();
+			//Adding nodes to the Border Pane
+			root.setCenter(sudokuTable.getGridContainer());
+			root.setTop(gameTitle);
 			
-			addInputsToGrid(root);
+			sudokuTable.updateBox(1,"9");
 			
-			gridInput.get(16).setText("9");
 			
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} 
+		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -41,20 +44,4 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-	//Inserts TextInputs objects into grid
-	//Saves references to objects to a ArrayList
-	public void addInputsToGrid(GridPane grid)
-	{		
-		for(int r = 0; r < 9; r++){
-			for(int c = 0; c < 9; c++) {
-				TextField areaOfInput = new TextField();
-				areaOfInput.setPrefWidth(30.0);
-				
-				grid.add(areaOfInput, c, r);				
-				gridInput.add(areaOfInput);
-			}
-		}
-	}
-
 }
