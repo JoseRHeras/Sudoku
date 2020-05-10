@@ -1,4 +1,4 @@
-package sudokuGame;
+package Solver_Methods;
 
 public class Solver {
 
@@ -127,5 +127,9 @@ public class Solver {
 			System.out.println();
 		}
 		
+	}
+
+	public boolean hasSolution() {
+		return hasSolution;
 	}	
 }

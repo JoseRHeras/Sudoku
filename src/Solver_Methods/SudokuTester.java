@@ -1,4 +1,4 @@
-package sudokuGame;
+package Solver_Methods;
 
 public class SudokuTester {
 
