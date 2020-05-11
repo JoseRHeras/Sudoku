@@ -145,6 +145,16 @@ public class FunctionalityControls {
 		}
 		return true;
 	}
+	
+	//Deletes all stored values in the board
+	public void clearBoard() {
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				board[i][j].setText("");
+			}
+		}
+	}
 }
 
 
