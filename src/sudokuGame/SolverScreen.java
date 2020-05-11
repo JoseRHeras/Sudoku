@@ -85,9 +85,7 @@ public class SolverScreen{
 			for(int j = 0; j < 9; j++) {
 				TextField cell = fControls.createTextField();
 				
-				fControls.addToBoard(i, j, cell);
-//				gameFunctions.formatBoard(i, j, textField);
-				
+				fControls.addToBoard(i, j, cell);				
                 table.addRow(i, cell);				
 			}
 		}
