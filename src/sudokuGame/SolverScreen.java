@@ -25,7 +25,6 @@ public class SolverScreen{
 		this.primaryStage = primaryStage;
 		this.fControls = new FunctionalityControls(primaryStage);
 	}
-
 	
 	public Scene getScene() {
 		
@@ -85,11 +84,8 @@ public class SolverScreen{
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < 9; j++) {
 				TextField cell = fControls.createTextField();
-//				cell.setPrefWidth(30);
 				
-//				TextField textField = controller.createTextField();
-//				gameFunctions.formatTextField(textField);
-//				gameFunctions.addBoardField(j - 1, i - 1, textField);
+				fControls.addToBoard(i, j, cell);
 //				gameFunctions.formatBoard(i, j, textField);
 				
                 table.addRow(i, cell);				
@@ -114,7 +110,7 @@ public class SolverScreen{
 		//Creating button
 		Button solve = new Button();
 		solve.setText("Solve");
-//		solve.setOnAction((e) -> gameFunctions.solveSudoku());
+		solve.setOnAction((e) -> fControls.solveSudoku());
 		
 		controlButton.getChildren().add(solve);
 			
