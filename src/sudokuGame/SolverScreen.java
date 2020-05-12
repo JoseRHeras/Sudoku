@@ -109,8 +109,13 @@ public class SolverScreen{
 		Button solve = new Button();
 		solve.setText("Solve");
 		solve.setOnAction((e) -> fControls.solveSudoku());
+
+		//Clear button
+		Button clear = new Button();
+		clear.setText("Clear");
+		clear.setOnAction((e) -> fControls.clearBoard()); 
 		
-		controlButton.getChildren().add(solve);
+		controlButton.getChildren().addAll(solve, clear); 
 			
 		return controlButton;
 	}

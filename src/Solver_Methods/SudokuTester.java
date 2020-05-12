@@ -18,7 +18,7 @@ public class SudokuTester {
 //				{9, 0, 0, 4, 0, 0, 0, 6, 0}
 //		};
 //	
-		
+//		
 //		int[][] game= {
 //				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
 //                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
@@ -27,9 +27,9 @@ public class SudokuTester {
 //                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
 //                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
 //                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-//                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-//                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }};  
-//		
+//                { 0, 0, 0, 0, 0, 0, 0, 0, 4 }, 
+//                { 0, 0, 0, 0, 0, 0, 0, 0, 1 }};  
+////		
 		
 		
 //		int[][] game= {
@@ -59,6 +59,7 @@ public class SudokuTester {
 		Solver table = new Solver(game);
 		table.solveIt();
 		table.printTable();
+		System.out.println(table.hasSolution());
 	}
 
 }
