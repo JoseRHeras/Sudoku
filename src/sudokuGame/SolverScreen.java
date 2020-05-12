@@ -1,5 +1,7 @@
 package sudokuGame;
 
+import javax.swing.GroupLayout.Alignment;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -58,6 +61,8 @@ public class SolverScreen{
 		Text title = new Text("Sudoku Solver");
 		title.setTextAlignment(TextAlignment.JUSTIFY);
 		title.setFill(Color.ALICEBLUE);
+		title.setFont(Font.font ("Verdana", 30));
+		title.setFill(Color.RED);
 		
 		//Add nodes to container
 		titleBox.getChildren().add(title);
@@ -108,11 +113,14 @@ public class SolverScreen{
 		//Creating button
 		Button solve = new Button();
 		solve.setText("Solve");
+		solve.getStyleClass().add("solve-button");
 		solve.setOnAction((e) -> fControls.solveSudoku());
-
+		
+		
 		//Clear button
 		Button clear = new Button();
 		clear.setText("Clear");
+		clear.getStyleClass().add("clear-button");
 		clear.setOnAction((e) -> fControls.clearBoard()); 
 		
 		controlButton.getChildren().addAll(solve, clear); 

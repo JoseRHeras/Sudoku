@@ -3,10 +3,18 @@ package sudokuGame;
 import Solver_Methods.Solver;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class FunctionalityControls {
+	
 	final Stage primaryStage;
 	private TextField[][] board = new TextField[9][9];
 	
@@ -36,7 +44,8 @@ public class FunctionalityControls {
 //		textField.setMaxSize(25, 10);
         textField.setMinWidth(30);
         textField.setAlignment(Pos.CENTER);
-        textField.setPadding(new Insets(5.5, 15, 5, 5));
+        textField.setPadding(new Insets(5, 15, 5, 5));
+        textField.setFont(Font.font("Arial",FontWeight.BOLD,15));
 	}
 	
 	
@@ -49,7 +58,7 @@ public class FunctionalityControls {
 			//Gets the inputed value for validation
 			if(textField.getText().length() > maxSize ) {
 				String newTextValue = textField.getText().substring(0, maxSize);
-				System.out.println("Value Added");		//For testing purposes. Delete when completed
+//				System.out.println("Value Added");		//For testing purposes. Delete when completed
 				textField.setText(newTextValue);
 			}
 			
@@ -84,10 +93,13 @@ public class FunctionalityControls {
 	public void solveSudoku() {
 		
 		//Validate data within the TextField array
-		if(validateTextFieldArray()) {
+//		if(validateTextFieldArray()) {
 			
 			//Create an int array which will contain data to be passed to "Solve" class
 			int[][] sudokuGake = new int[9][9];
+			int numberOfValidInputs = 0;					//A valid number is a value grater than 0. To continue the table needs at least one value
+			
+			String msg, msgTitle;
 			
 			//Convert data within TextField array to integers
 			for (int i = 0; i < board.length; i++) {
@@ -99,6 +111,7 @@ public class FunctionalityControls {
 					
 					if(originalValue.matches("[1-9]")) {
 						convertedValue = Integer.parseInt(board[i][j].getText().trim());
+						numberOfValidInputs++;
 					}
 					else {
 						convertedValue = 0;
@@ -108,43 +121,51 @@ public class FunctionalityControls {
 				}
 			}
 			
-//			printTable(sudokuGake);
-			Solver solver = new Solver(sudokuGake);
-			solver.solveIt();
 			
-//			printTable(sudokuGake);
-			
-			//Update the User BoardView
-			if(solver.hasSolution()) {
-				for (int i = 0; i < sudokuGake.length; i++) {
-					for (int j = 0; j < sudokuGake[i].length; j++) {
-						this.board[i][j].setText(sudokuGake[i][j] + "");
+			if(numberOfValidInputs > 0) {
+				Solver solver = new Solver(sudokuGake);
+				solver.solveIt();
+				
+				
+				//Update the User BoardView
+				if(solver.hasSolution()) {
+					for (int i = 0; i < sudokuGake.length; i++) {
+						for (int j = 0; j < sudokuGake[i].length; j++) {
+							this.board[i][j].setText(sudokuGake[i][j] + "");
+						}
 					}
+				}
+				else {
+					msg = "Game has no solution!!";
+					msgTitle = "No Solution";
+					errorMessage(msg, msgTitle);
 				}
 			}
 			else {
-				//Alert the user for non-solvable sudoku
-			}		
-		}
-		else {
-			//Alert the user for non-valid table
-			System.out.println("Table is not completed");
-		}
+				msg = "Table must have at least one value";
+				msgTitle = "Empty Label";
+				errorMessage(msg, msgTitle);
+			}
+//		}
+//		else {
+//			//Alert the user for non-valid table
+//			System.out.println("Table is not completed");
+//		}
 	}
 	
-	//Helper method which validates data stored within the TextField array
-	private boolean validateTextFieldArray() {
-		
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if(!(board[i][j].getText().matches("[1-9]"))) {
-					if(!(board[i][j].getText().equals("")))
-						return false;
-				}
-			}
-		}
-		return true;
-	}
+//	//Helper method which validates data stored within the TextField array
+//	private boolean validateTextFieldArray() {
+//		
+//		for (int i = 0; i < board.length; i++) {
+//			for (int j = 0; j < board[i].length; j++) {
+//				if(!(board[i][j].getText().matches("[1-9]"))) {
+//					if(!(board[i][j].getText().equals("")))
+//						return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 	
 	//Deletes all stored values in the board
 	public void clearBoard() {
@@ -154,6 +175,43 @@ public class FunctionalityControls {
 				board[i][j].setText("");
 			}
 		}
+	}
+	
+	/*
+	 Function used to display pop windows with error messages.
+	 Takes two parameters as input and formats the pop to match the corresponding inputs.
+	 */
+	private void errorMessage(String errorMessage, String title) {
+		//Stage creation and configuration
+		Stage emptyTableDisplay = new Stage();		
+		emptyTableDisplay.initModality(Modality.APPLICATION_MODAL);
+		emptyTableDisplay.setTitle(title);
+		
+		//Label creation and configuration
+		Label message = new Label();
+		message.setText(errorMessage);
+		message.setStyle("-fx-color: red;");
+		
+		//Create and configure Closing Button
+		Button closeButton = new Button();
+		closeButton.setText("Ok");
+		closeButton.setOnAction(e -> emptyTableDisplay.close());
+		closeButton.setStyle("-fx-background-color: red; -fx-text-fill: white; ");
+		
+		
+		//Layout
+		VBox layout = new VBox();
+		layout.setAlignment(Pos.CENTER);
+		layout.getChildren().addAll(message, closeButton);
+		layout.setPadding(new Insets(5, 5, 5, 5));
+		layout.setSpacing(8);
+		layout.setStyle("-fx-background-color: #FFF0E9;");
+		
+		//Create Scene and display stage
+		Scene warningScene = new Scene(layout, 250,50);
+		
+		emptyTableDisplay.setScene(warningScene);
+		emptyTableDisplay.showAndWait();				
 	}
 }
 

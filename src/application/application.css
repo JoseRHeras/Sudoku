@@ -4,3 +4,13 @@
 	-fx-background-color: #4B5267;
 	-fx-text-fill: white;
 }
+
+.solve-button{
+	-fx-background-color: green;
+	-fx-text-fill: white;
+}
+
+.clear-button{
+	-fx-background-color: red;
+	-fx-text-fill: white;
+}

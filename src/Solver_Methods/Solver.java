@@ -137,7 +137,6 @@ public class Solver {
 	private boolean validSudokuTable() {
 		int currentValue;
 		
-		//Function can be modified to evaluate the number of initial for a minimal number of inputs.
 		for (int i = 0; i < sudokuGameTable.length; i++) {
 			for (int j = 0; j < sudokuGameTable[i].length; j++) {
 				currentValue = sudokuGameTable[i][j];
@@ -150,13 +149,15 @@ public class Solver {
 							return false;
 						}
 						if(currentValue == sudokuGameTable[j2][j] && j2 != i) {
-							return false;								//Evaluate row
+							return false;											//Evaluate row
 						}
 					}
 				}
 			}
 			
-		}		
+		}
+		
+		//Return true if at least one input greater than 0
 		return true;
 	}	
 }
